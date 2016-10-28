@@ -1,0 +1,83 @@
+body, html {
+  font-family: "HelveticaNeueLT Std", "Helvetica LT Std", sans-serif;
+  font-weight: bold;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.white-card, .black-card {
+  display: flex;
+  justify-content: stretch;
+  flex-flow: column;
+  padding: .25in;
+  box-sizing: border-box;
+}
+
+.white-card {
+  background: #fff;
+  color: #000;
+}
+
+.black-card {
+  background: #000;
+  color: #fff;
+}
+
+.card-content {
+  flex: 1;
+  font-size: 14pt;
+  line-height: 150%;
+}
+.card-footer {
+  display: flex;
+  flex-flow: row;
+  align-items: flex-end;
+}
+.cards-brand {
+  flex: 1;
+  font-size: 5pt;
+}
+.card-twist {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+}
+.card-rule {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  font-size: 14pt;
+  margin-top: 3pt;
+}
+.card-count {
+  font-size: 16pt;
+  height: 20pt;
+  width: 20pt;
+  border-radius: 50%;
+  background: #fff;
+  color: #000;
+  margin-left: 3pt;
+  text-align: center;
+}
+
+@media screen {
+  body {
+    background: #888;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+  }
+  .white-card, .black-card {
+    height: 3.2in;
+    width: 2.4in;
+    margin: 24px;
+  }
+}
+
+@media print {
+  .white-card, .black-card {
+    height: 100%;
+    break-after: page;
+  }
+}
