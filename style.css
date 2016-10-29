@@ -10,7 +10,7 @@ body, html {
   display: flex;
   justify-content: stretch;
   flex-flow: column;
-  padding: .25in;
+  padding: .10in .14in;
   box-sizing: border-box;
 }
 
@@ -26,8 +26,8 @@ body, html {
 
 .card-content {
   flex: 1;
-  font-size: 14pt;
-  line-height: 150%;
+  font-size: 17pt;
+  line-height: 125%;
 }
 .card-footer {
   display: flex;
@@ -36,12 +36,17 @@ body, html {
 }
 .cards-brand {
   flex: 1;
-  font-size: 5pt;
+  font-size: 5.5pt;
+  padding: .08in 0 .145in .34in;
+  background-image: url('cahlogo.svg');
+  background-repeat: no-repeat;
+  background-size: auto .225in;
 }
 .card-twist {
   display: flex;
   flex-flow: column;
   align-items: flex-end;
+  padding-bottom: .125in;
 }
 .card-rule {
   display: flex;
