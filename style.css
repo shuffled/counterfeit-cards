@@ -37,8 +37,8 @@ body, html {
 .cards-brand {
   flex: 1;
   font-size: 5.5pt;
-  padding: .08in 0 .145in .34in;
-  background-image: url('cahlogo.svg');
+  padding: .08in 0 .125in .34in;
+  background-image: url('counterfeitlogo.svg');
   background-repeat: no-repeat;
   background-size: auto .225in;
 }
@@ -46,24 +46,31 @@ body, html {
   display: flex;
   flex-flow: column;
   align-items: flex-end;
-  padding-bottom: .125in;
+  padding-bottom: .08in;
 }
 .card-rule {
   display: flex;
   flex-flow: row;
   align-items: center;
-  font-size: 14pt;
-  margin-top: 3pt;
+  font-size: 12pt;
+  margin-top: .06in;
 }
 .card-count {
-  font-size: 16pt;
-  height: 20pt;
-  width: 20pt;
+  font-size: 15pt;
+  height: .25in;
+  width: .25in;
   border-radius: 50%;
   background: #fff;
   color: #000;
-  margin-left: 3pt;
+  margin: 0 3pt;
   text-align: center;
+  line-height: 115%;
+}
+sup {
+  vertical-align: baseline;
+  position: relative;
+  top: -.8em;
+  font-size: .5em;
 }
 
 @media screen {
@@ -84,5 +91,9 @@ body, html {
   .white-card, .black-card {
     height: 100%;
     break-after: page;
+  }
+  .black-card .card-content {
+    /* sacrifice positional accuracy for visual comfort */
+    margin-top: .125in;
   }
 }
