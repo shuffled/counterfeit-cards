@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    link(rel="stylesheet", href="style.css")
+  body
+    for set in sets
+      for card in set.cards.white
+        .white-card
+          .card-content!= card.text
+          .card-footer
+            .cards-brand(style=`background-image: url(${set.logo})`)= set.brand
+      for card in set.cards.black
+        .black-card
+          .card-content!= card.text
+          .card-footer
+            .cards-brand(style=`background-image: url(${set.logo})`)= set.brand
+            if card.pick > 1
+              .card-twist
+                if card.pick > 2
+                  .card-rule DRAW #[span.card-count 2]
+                .card-rule PICK #[span.card-count= card.pick]

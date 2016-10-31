@@ -1,0 +1,21 @@
+{
+  "name": "counterfeit-cards",
+  "version": "1.0.0",
+  "description": "A label-based Cards Against Humanity clone generator",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stuartpb/counterfeit-cards.git"
+  },
+  "author": "Stuart P. Bentley <stuart@testtrack4.com>",
+  "bugs": {
+    "url": "https://github.com/stuartpb/counterfeit-cards/issues"
+  },
+  "homepage": "https://github.com/stuartpb/counterfeit-cards#readme",
+  "dependencies": {
+    "js-yaml": "^3.6.1",
+    "pug": "^2.0.0-beta6"
+  }
+}
