@@ -9,12 +9,12 @@ html
         .white-card
           .card-content!= card.text
           .card-footer
-            .cards-brand(style=`background-image: url(${set.logo})`)= set.brand
+            .cards-brand(style=`background-image: url(${brand.logo})`)= brand.name
       for card in set.cards.black
         .black-card
           .card-content!= card.text
           .card-footer
-            .cards-brand(style=`background-image: url(${set.logo})`)= set.brand
+            .cards-brand(style=`background-image: url(${brand.logo})`)= brand.name
             if card.pick > 1
               .card-twist
                 if card.pick > 2
