@@ -15,7 +15,7 @@ html
           .card-content!= card.text
           .card-footer
             .cards-brand(style=`background-image: url(${brand.logo})`)= brand.name
-            if card.pick > 1
+            if card.pick && card.pick > 1
               .card-twist
                 if card.pick > 2
                   .card-rule DRAW #[span.card-count 2]
