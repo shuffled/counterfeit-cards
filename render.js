@@ -23,9 +23,32 @@ function adjustCards(cards) {
   }
 }
 
+function interleavedList(cards) {
+  let cardList = [];
+  let blackInterval = 5;
+  let intervalOneLess = blackInterval - 1;
+  let cardCount = cards.white.length + cards.black.length;
+  for (let iTotal = 0, iBlack = 0, iWhite = 0; iTotal < cardCount; iTotal++) {
+    let printBlack = iBlack < cards.black.length &&
+      (iTotal % blackInterval == intervalOneLess ||
+        iWhite >= cards.white.length);
+
+    let insertCard = printBlack ? cards.black[iBlack] : cards.white[iWhite];
+    insertCard.type = printBlack ? 'black' : 'white';
+    cardList[iTotal] = insertCard;
+
+    if (printBlack) ++iBlack;
+    else ++iWhite;
+  }
+
+  return cardList;
+}
+
 for (let cardSet of locals.sets) {
   adjustCards(cardSet.cards.white);
   adjustCards(cardSet.cards.black);
+
+  cardSet.cards = interleavedList(cardSet.cards);
 }
 
 switch (locals.brand.name) {

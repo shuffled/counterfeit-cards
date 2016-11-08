@@ -5,13 +5,8 @@ html
     link(rel="stylesheet", href="style.css")
   body
     for set in sets
-      for card in set.cards.white
-        .white-card
-          .card-content!= card.text
-          .card-footer
-            .cards-brand(style=`background-image: url(${brand.logo})`)= brand.name
-      for card in set.cards.black
-        .black-card
+      for card in set.cards
+        div(class=card.type+'-card')
           .card-content!= card.text
           .card-footer
             .cards-brand(style=`background-image: url(${brand.logo})`)= brand.name
