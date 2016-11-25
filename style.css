@@ -1,5 +1,5 @@
 body, html {
-  font-family: "HelveticaNeueLT Std", "Helvetica LT Std", sans-serif;
+  font-family: "Helvetica Neue LT Std", "Helvetica LT Std", sans-serif;
   font-weight: bold;
   height: 100%;
   margin: 0;
@@ -26,8 +26,8 @@ body, html {
 
 .card-content {
   flex: 1;
-  font-size: 17pt;
-  line-height: 125%;
+  font-size: 16.666pt;
+  line-height: 135.25%;
 }
 .card-footer {
   display: flex;
@@ -67,9 +67,9 @@ body, html {
   line-height: 115%;
 }
 sup {
-  vertical-align: baseline;
+  vertical-align: top;
   position: relative;
-  top: -.8em;
+  top: -.5em;
   font-size: .5em;
 }
 
