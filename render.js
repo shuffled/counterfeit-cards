@@ -3,6 +3,7 @@
 let fs = require('fs');
 let yaml = require('js-yaml');
 let pug = require('pug');
+let chokidar = require('chokidar');
 
 let argv = require('minimist')(process.argv.slice(2),{
   boolean: 'w'
@@ -83,8 +84,8 @@ function renderFile(localFilename) {
 
 renderFile(inputFilename);
 if (argv.w) {
-  fs.watch(inputFilename,(eventType, filename) => {
+  chokidar.watch(inputFilename).on('change', path => {
     renderFile(inputFilename);
-    console.log(eventType, filename, 'Rendering...');
+    console.log(new Date().toISOString()+' render '+inputFilename+' => index.html');
   });
 }
