@@ -28,6 +28,7 @@ body, html {
   flex: 1;
   font-size: 16.666pt;
   line-height: 135.25%;
+  white-space: pre-wrap;
 }
 .card-footer {
   display: flex;
