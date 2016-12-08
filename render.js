@@ -5,7 +5,7 @@ let yaml = require('js-yaml');
 let pug = require('pug');
 
 let renderer = pug.compile(fs.readFileSync('index.pug'));
-let locals = yaml.load(fs.readFileSync('locals.yaml'));
+let locals = yaml.load(fs.readFileSync(process.argv[2] || 'locals.yaml'));
 
 if (!locals.brand) {
   locals.brand = {};
