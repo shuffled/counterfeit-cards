@@ -4,6 +4,7 @@ let fs = require('fs');
 let yaml = require('js-yaml');
 let pug = require('pug');
 let chokidar = require('chokidar');
+let interleaving = require('interleaving');
 
 let argv = require('minimist')(process.argv.slice(2),{
   boolean: 'w'
@@ -40,31 +41,11 @@ function processedText(str) {
     .replace(supRegExp,'<sup>$1</sup>');
 }
 
-function adjustCards(cards) {
-  for (let card of cards) {
+function adjustCards(cards, type) {
+  for (let card of cards[type]) {
     card.text = processedText(card.text);
+    card.type = type;
   }
-}
-
-function interleavedList(cards) {
-  let cardList = [];
-  let blackInterval = 5;
-  let intervalOneLess = blackInterval - 1;
-  let cardCount = cards.white.length + cards.black.length;
-  for (let iTotal = 0, iBlack = 0, iWhite = 0; iTotal < cardCount; iTotal++) {
-    let printBlack = iBlack < cards.black.length &&
-      (iTotal % blackInterval == intervalOneLess ||
-        iWhite >= cards.white.length);
-
-    let insertCard = printBlack ? cards.black[iBlack] : cards.white[iWhite];
-    insertCard.type = printBlack ? 'black' : 'white';
-    cardList[iTotal] = insertCard;
-
-    if (printBlack) ++iBlack;
-    else ++iWhite;
-  }
-
-  return cardList;
 }
 
 function renderFile(localFilename) {
@@ -73,10 +54,11 @@ function renderFile(localFilename) {
   setDefaultLocals(locals);
 
   for (let cardSet of locals.sets) {
-    adjustCards(cardSet.cards.white);
-    adjustCards(cardSet.cards.black);
+    adjustCards(cardSet.cards,'white');
+    adjustCards(cardSet.cards,'black');
 
-    cardSet.cards = interleavedList(cardSet.cards);
+    cardSet.cards = interleaving.justify(
+      cardSet.cards.white, cardSet.cards.black);
   }
 
   fs.writeFileSync('index.html',renderer(locals),'utf8');
