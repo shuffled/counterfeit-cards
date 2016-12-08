@@ -4,27 +4,44 @@ let fs = require('fs');
 let yaml = require('js-yaml');
 let pug = require('pug');
 
-let renderer = pug.compile(fs.readFileSync('index.pug'));
-let locals = yaml.load(fs.readFileSync(process.argv[2] || 'locals.yaml'));
+let argv = require('minimist')(process.argv.slice(2),{
+  boolean: 'w'
+});
 
-if (!locals.brand) {
-  locals.brand = {};
-}
-if (!locals.brand.name) {
-  locals.brand.name = 'Counterfeit Cards';
+let renderer = pug.compile(fs.readFileSync('index.pug'));
+
+let inputFilename = argv._[0] || 'locals.yaml';
+
+function setDefaultLocals(locals) {
+  if (!locals.brand) {
+    locals.brand = {};
+  }
+  if (!locals.brand.name) {
+    locals.brand.name = 'Counterfeit Cards';
+  }
+  if (!locals.brand.logo) switch (locals.brand.name) {
+    case 'Cards Against Humanity':
+      locals.brand.logo = 'cahlogo.svg';
+      break;
+    default:
+      locals.brand.logo = 'counterfeitlogo.svg';
+      break;
+  }
 }
 
 let superscript = ['&reg;','®'];
 let supRegExp = new RegExp('('+superscript.join('|')+')','g');
+function processedText(str) {
+  return str.replace(/-/g,'\u2011')
+    .replace(/'/g,'&rsquo;')
+    .replace(/"([^"]*)"/g,'&ldquo;$1&rdquo;')
+    .replace(/\.\.\./g,'&hellip;')
+    .replace(supRegExp,'<sup>$1</sup>');
+}
 
 function adjustCards(cards) {
   for (let card of cards) {
-    card.text = card.text
-      .replace(/-/g,'\u2011')
-      .replace(/'/g,'&rsquo;')
-      .replace(/"([^"]*)"/g,'&ldquo;$1&rdquo;')
-      .replace(/\.\.\./g,'&hellip;')
-      .replace(supRegExp,'<sup>$1</sup>');
+    card.text = processedText(card.text);
   }
 }
 
@@ -49,20 +66,25 @@ function interleavedList(cards) {
   return cardList;
 }
 
-for (let cardSet of locals.sets) {
-  adjustCards(cardSet.cards.white);
-  adjustCards(cardSet.cards.black);
+function renderFile(localFilename) {
+  let locals = yaml.load(fs.readFileSync(localFilename));
 
-  cardSet.cards = interleavedList(cardSet.cards);
+  setDefaultLocals(locals);
+
+  for (let cardSet of locals.sets) {
+    adjustCards(cardSet.cards.white);
+    adjustCards(cardSet.cards.black);
+
+    cardSet.cards = interleavedList(cardSet.cards);
+  }
+
+  fs.writeFileSync('index.html',renderer(locals),'utf8');
 }
 
-switch (locals.brand.name) {
-  case 'Cards Against Humanity':
-    locals.brand.logo = 'cahlogo.svg';
-    break;
-  default:
-    locals.brand.logo = 'counterfeitlogo.svg';
-    break;
+renderFile(inputFilename);
+if (argv.w) {
+  fs.watch(inputFilename,(eventType, filename) => {
+    renderFile(inputFilename);
+    console.log(eventType, filename, 'Rendering...');
+  });
 }
-
-fs.writeFileSync('index.html',renderer(locals),'utf8');
