@@ -19,7 +19,12 @@ let supRegExp = new RegExp('('+superscript.join('|')+')','g');
 
 function adjustCards(cards) {
   for (let card of cards) {
-    card.text = card.text.replace(supRegExp,'<sup>$1</sup>');
+    card.text = card.text
+      .replace(/-/g,'\u2011')
+      .replace(/'/g,'&rsquo;')
+      .replace(/"([^"]*)"/g,'&ldquo;$1&rdquo;')
+      .replace(/\.\.\./g,'&hellip;')
+      .replace(supRegExp,'<sup>$1</sup>');
   }
 }
 
