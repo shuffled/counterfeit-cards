@@ -37,8 +37,8 @@ body, html {
 }
 .cards-brand {
   flex: 1;
-  font-size: 5.5pt;
-  padding: .08in 0 .125in .34in;
+  font-size: 5.6pt;
+  padding: .08in 0 .125in .33in;
   background-image: url('counterfeitlogo.svg');
   background-repeat: no-repeat;
   background-size: auto .225in;
