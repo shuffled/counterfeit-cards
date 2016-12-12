@@ -34,7 +34,7 @@ function setDefaultLocals(locals) {
 let superscript = ['&reg;','®'];
 let supRegExp = new RegExp('('+superscript.join('|')+')','g');
 function processedText(str) {
-  return str.replace(/-/g,'\u2011')
+  return str
     .replace(/'/g,'&rsquo;')
     .replace(/"([^"]*)"/g,'&ldquo;$1&rdquo;')
     .replace(/\.\.\./g,'&hellip;')
