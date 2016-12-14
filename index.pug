@@ -4,14 +4,13 @@ html
     meta(charset="UTF-8")
     link(rel="stylesheet", href="style.css")
   body
-    for set in sets
-      for card in set.cards
-        div(class=card.type+'-card')
-          .card-content!= card.text
-          .card-footer
-            .cards-brand(style=`background-image: url(${brand.logo})`)= brand.name
-            if card.pick && card.pick > 1
-              .card-twist
-                if card.pick > 2
-                  .card-rule DRAW #[span.card-count 2]
-                .card-rule PICK #[span.card-count= card.pick]
+    for card in cards
+      div(class=card.type+'-card')
+        .card-content!= card.text
+        .card-footer
+          .cards-brand(style=`background-image: url(${brand.logo})`)= brand.name
+          if card.pick && card.pick > 1
+            .card-twist
+              if card.pick > 2
+                .card-rule DRAW #[span.card-count 2]
+              .card-rule PICK #[span.card-count= card.pick]

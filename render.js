@@ -53,13 +53,10 @@ function renderFile(localFilename) {
 
   setDefaultLocals(locals);
 
-  for (let cardSet of locals.sets) {
-    adjustCards(cardSet.cards,'white');
-    adjustCards(cardSet.cards,'black');
+  adjustCards(locals,'white');
+  adjustCards(locals,'black');
 
-    cardSet.cards = interleaving.justify(
-      cardSet.cards.white, cardSet.cards.black);
-  }
+  locals.cards = interleaving.justify(locals.white, locals.black);
 
   fs.writeFileSync('index.html',renderer(locals),'utf8');
 }
@@ -68,6 +65,7 @@ renderFile(inputFilename);
 if (argv.w) {
   chokidar.watch(inputFilename).on('change', path => {
     renderFile(inputFilename);
-    console.log(new Date().toISOString()+' render '+inputFilename+' => index.html');
+    console.log(new Date().toISOString() +
+      ` render ${inputFilename} => index.html`);
   });
 }
