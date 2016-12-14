@@ -42,6 +42,7 @@ function processedText(str) {
 }
 
 function adjustCards(cards, type) {
+  if (!cards[type]) cards.type = [];
   for (let card of cards[type]) {
     card.text = processedText(card.text);
     card.type = type;
